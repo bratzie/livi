@@ -1,0 +1,255 @@
+/*
+    Blue: rgba(0, 126, 229, 1)
+*/
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+/* 
+    Transitions
+*/
+
+#header ul li a,
+#header,
+#header #logo {
+  transition-delay: 0s;
+  transition-duration: .3s;
+  transition-property: background-color, box-shadow, padding, color, height, font-size, margin;
+  transition-timing-function: ease-in-out;
+}
+
+.waves-effect.waves-blue .waves-ripple {
+  background-color: rgba(0, 126, 229, .4);
+}
+
+.parallax-container {
+  transition-delay: 0s;
+  transition-duration: .4s;
+  transition-property: height;
+  transition-timing-function: ease-in-out;
+}
+
+/* Top */
+.welcome {
+  height: 100%;
+}
+
+.welcome .parallax img {
+  opacity: .5;
+}
+
+#img-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 50px;
+  width: auto;
+  z-index: 6;
+}
+
+#header {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  z-index: 5;
+}
+
+#header #logo {
+  float: left;
+  margin: 0px 19px;
+  padding-top: 4px;
+  font-size: 1.5em;
+  color: rgba(0, 0, 0, 0);
+}
+
+#header ul {
+  margin: 0;
+  list-style: none;
+  float: right;
+}
+
+#header ul li {
+  display: inline-block;
+  margin-left: -4px;
+  cursor: pointer;
+}
+
+#header ul li a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, .8);
+  display: block;
+  padding: 19px;
+  box-shadow: inset rgba(0, 126, 229, 1) 0 0 0;
+}
+
+/* Contrast Header */
+
+#header.contrast {
+  background-color: rgba(0, 0, 0, .8);
+  box-shadow: 20px 20px 20px rgba(255, 255, 255, 0);
+  height: 40px;
+}
+
+#header.contrast ul li a {
+  color: rgba(255, 255, 255, .7);
+  padding: 10px 19px;
+}
+
+#header.contrast #logo {
+  color: rgba(255, 255, 255, .7);
+}
+
+#header ul li.active a {
+  color: rgba(255, 255, 255, .8);
+  box-shadow: inset rgba(255, 255, 255, .8) 0 -5px 0 0;
+}
+
+#header ul li a:hover {
+  color: rgba(0, 126, 229, 1);
+  background-color: rgba(0, 126, 229, .05);
+  box-shadow: inset rgba(0, 126, 229, 1) 0 -5px 0 0;
+}
+
+/* Content */
+img {
+  width: 100%;
+}
+
+.faded {
+  opacity: .7;
+  font-weight: bold;
+}
+
+.note {
+  opacity: .3;
+}
+
+.blur {
+  -webkit-filter: blur(4px);
+}
+
+.infographic, .infographic-heading {
+  text-transform: uppercase;
+}
+
+.section:not(#contact) {
+  opacity: 0; /* to fade in sections on scroll*/
+  padding-top: 3rem;
+}
+
+.section-heading {
+  border-left: rgba(0, 126, 229, 1) 4px solid;
+  padding-left: 15px;
+}
+
+.infographic-heading, .section-heading {
+  color: rgba(0, 0, 0, .4);
+}
+
+.infographic img.info-icon {
+  width: 100px;
+  margin-bottom: -10px;
+}
+
+.quote {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  z-index: 2;
+  bottom: 150px;
+  padding: 0px 20px;
+  color: rgba(63, 63, 63, 1);
+}
+
+.pushy-arrow {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  bottom: 20px;
+  padding-left: 15px;
+  text-align: center;
+  animation: bob 4s infinite;
+  background: rgba(63, 63, 63, 1) /*rgba(0, 126, 229, 1)*/;
+  -webkit-mask: url(images/icons/arrow%20down-90.svg) center / contain no-repeat;
+}
+
+.pushy-arrow img {
+  width: 100px;
+  opacity: 0;
+  position: relative;
+  color: blue;
+  bottom: 0px;
+}
+
+/* Listings */
+.listing .card-panel {
+  width: 100%;
+  background-color: rgba(250, 250, 250, 1);
+  border-left: rgba(0, 126, 229, 1) 2px solid;
+}
+
+.listing-info {
+  display: none;
+}
+
+.listing-info ul li {
+  border-left: rgba(0, 126, 229, 1) 2px solid;
+  padding-left: 7px;
+  margin: 7px 0;
+}
+
+/* Footer */
+.footer .col:first-child {
+  padding-right: 0;
+}
+
+.footer .col:last-child {
+  padding-left: 0;
+}
+
+/* Animation */
+/* Chrome, Safari, Opera */ 
+@-webkit-keyframes bob {
+    0%     {bottom: 30px; opacity: 0;}
+    25%    {bottom: 10px; opacity: 1;}
+    75%    {bottom: 10px; opacity: 1;}
+    100%   {bottom: -20px; opacity: 0;}
+} 
+
+/* Standard syntax */ 
+@keyframes bob {
+    0%     {bottom: 30px; opacity: 0;}
+    25%    {bottom: 10px; opacity: 1;}
+    75%    {bottom: 10px; opacity: 1;}
+    100%   {bottom: -20px; opacity: 0;}
+}
+
+/* MQ */
+@media(max-width: 950px) {
+  .parallax-container {
+    height: 400px;
+  }
+}
+
+@media(max-width: 600px) {
+  
+  /* TODO FIX MENU*/
+  
+  .center-on-s {
+    text-align: center;
+  }
+  
+  .parallax-container {
+    height: 200px;
+  }
+
+  .section:not(#contact) {
+    opacity: 1; /* to fade in sections on scroll*/
+    padding-top: 1rem;
+  }
+}
