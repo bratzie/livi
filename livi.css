@@ -15,10 +15,11 @@ body {
 
 #header ul li a,
 #header,
-#header #logo {
+#header #logo,
+#img-logo {
   transition-delay: 0s;
   transition-duration: .3s;
-  transition-property: background-color, box-shadow, padding, color, height, font-size, margin;
+  transition-property: background-color, box-shadow, padding, color, height, font-size, margin, top;
   transition-timing-function: ease-in-out;
 }
 
@@ -44,11 +45,12 @@ body {
 
 #img-logo {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  height: 50px;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 200px;
   width: auto;
-  z-index: 6;
+  z-index: 3;
 }
 
 #header {
@@ -137,9 +139,9 @@ img {
   text-transform: uppercase;
 }
 
-.section:not(#contact) {
-  opacity: 0; /* to fade in sections on scroll*/
-  padding-top: 3rem;
+.fade-in-section {
+  position: relative;
+  top: 30px;
 }
 
 .section-heading {
@@ -152,7 +154,7 @@ img {
 }
 
 .infographic img.info-icon {
-  width: 100px;
+  height: 120px;
   margin-bottom: -10px;
 }
 
@@ -174,8 +176,8 @@ img {
   padding-left: 15px;
   text-align: center;
   animation: bob 4s infinite;
-  background: rgba(63, 63, 63, 1) /*rgba(0, 126, 229, 1)*/;
-  -webkit-mask: url(images/icons/arrow%20down-90.svg) center / contain no-repeat;
+  background: rgba(0, 126, 229, 1) /*rgba(63, 63, 63, 1)*/;
+  -webkit-mask: url(images/icons/arrow.svg) center / contain no-repeat;
 }
 
 .pushy-arrow img {
@@ -204,6 +206,10 @@ img {
 }
 
 /* Footer */
+.footer {
+  padding-top: 4rem;
+}
+
 .footer .col:first-child {
   padding-right: 0;
 }
@@ -234,6 +240,16 @@ img {
   .parallax-container {
     height: 400px;
   }
+
+  .fade-in-section {
+    opacity: 1; /* to fade in sections on scroll*/
+    top: 0;
+  }
+  
+  #img-logo {
+    top: 125px;
+    height: 150px;
+  }
 }
 
 @media(max-width: 600px) {
@@ -244,12 +260,12 @@ img {
     text-align: center;
   }
   
+  #img-logo {
+    top: 50px;
+    height: 100px;
+  }
+  
   .parallax-container {
     height: 200px;
-  }
-
-  .section:not(#contact) {
-    opacity: 1; /* to fade in sections on scroll*/
-    padding-top: 1rem;
   }
 }

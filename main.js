@@ -47,17 +47,29 @@ function fadeWelcome() {
 $(document).ready(function () {
   $('.parallax').parallax();
   
+  $('#challenge').find(".fade-in-section").css('opacity', 0);
+  $('#solution').find(".fade-in-section").css('opacity', 0);
+  $('#offer').find(".fade-in-section").css('opacity', 0);
+  $('#joinus').find(".fade-in-section").css('opacity', 0);
+  
   $('.listing div').click(function () {
    $(this).find('.listing-info').slideToggle();
   });
   
   windowContrast();
+  
+  if ($(window).width() < 950) {
+    $('#challenge').find(".fade-in-section").css('opacity', 1);
+    $('#solution').find(".fade-in-section").css('opacity', 1);
+    $('#offer').find(".fade-in-section").css('opacity', 1);
+    $('#joinus').find(".fade-in-section").css('opacity', 1);
+  }
 });
 
 function fadeInContent(content) {
-  $(content).animate({
-        paddingTop: '1rem',
-        opacity: '1'
+  $(content).find(".fade-in-section").animate({
+        top: 0,
+        opacity: 1
     }, 1500);
 };
 
