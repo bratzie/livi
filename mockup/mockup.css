@@ -1,0 +1,277 @@
+/*
+  Dark: rgba(33, 39, 44, 1)
+  Light: rgba(50, 58, 58, 1)
+  Blue: rgba(24, 140, 200, 1)
+*/
+
+body {
+  height: 100%;
+  width: 100%;
+  
+  background-color: rgb(55, 55, 55);
+  color: rgb(255, 255, 255);
+
+  overflow: hidden;
+}
+
+/* Animation */
+.view, #menu, #selector, #menu li, #gps-notification, .contact {
+  transition-delay: .1s;
+  transition-duration: .4s;
+  transition-property: top, bottom, background-color, color, transform, padding-top, box-shadow;
+  transition-timing-function: ease-in-out;
+}
+
+/* Views */
+#views {
+  z-index: 1;
+}
+
+.view {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  padding-top: 50px;
+  text-align: center;
+  font-size: 3em;
+  background-color: rgba(50, 58, 58, 1);
+  box-shadow: -10px 0 50px 5px rgba(0, 0, 0, .3);
+}
+
+#views.padded .view {
+  padding-top: 200px;
+}
+
+/* Calls */
+#calls {
+  z-index: 1;
+}
+
+#contacts {
+  height: 250px;
+  display: inline-flex;
+}
+
+#contacts > div {
+  height: 100%;
+  width: 100%;
+  margin: auto auto;
+  display: inline-flex;
+  align-items: center;
+}
+
+.contact {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  margin: 0 5px;
+  opacity: .5;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .4);
+  transform: scale(.95);
+}
+
+#contacts .contact.active {
+  width: 180px;
+  height: 180px;
+  z-index: 6;
+  opacity: 1;
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .3);
+  transform: scale(1.05);
+}
+
+#navigation {
+  z-index: 2;
+  background-image: url(navigation.jpg);
+  background-size: cover;
+  top: 100%;
+}
+
+#music {
+  z-index: 3;
+  top: 100%;
+}
+
+/* Overlays */
+#overlays div {
+  z-index: 5;
+}
+
+/* Device */
+#device div {
+  position: fixed;
+  height: 25px;
+  line-height: 25px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  text-align: center;
+  overflow: hidden;
+  padding: 0px 5px;
+}
+
+#device div span:first-child {
+  float: left;
+}
+
+#device div span:last-child {
+  float: right;
+}
+
+#top-bar {
+  top: 0px;
+}
+
+#bottom-bar {
+  bottom: 0px;
+}
+
+/* GPS Notification */
+#gps-notification {
+  position: relative;
+  top: -150px;
+  height: 150px;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, .8);
+  color: black;
+  box-shadow: 0 2px 10px 2px rgba(0, 0, 0, .1);
+  text-align: center;
+}
+
+/* Menu */
+#menu-container {
+  position: absolute;
+  bottom: 35px;
+  width: 50px;
+  height: 150px;
+  margin: 10px 20px;
+}
+
+#menu > ul {
+  margin: 0;
+}
+
+#menu li, #selector {
+  display: block;
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+#menu li {
+  position: relative;
+  padding-top: 10px;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(33, 39, 44, 1);
+  z-index: 5;
+  margin: 5px 0;
+}
+
+#menu li:before {
+  content: '';
+  position: absolute;
+  border: rgba(24, 140, 200, 1) solid 4px;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+}
+
+#menu li.active {
+  background-color: rgba(24, 140, 200, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+#menu li.active:before {
+  animation-name: ripple;
+}
+
+#selector {
+  background-color: rgba(255, 255, 255, .1);
+  position: relative;
+  bottom: 165px;
+}
+
+@keyframes ripple {
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    left: -10px;
+    opacity: 0;
+  }
+}
+
+/* Dials */
+#dials {
+  position: absolute;
+  width: 100%;
+  height: 220px;
+  bottom: 0px;
+  text-align: center;
+  z-index: 4 !important;
+}
+
+#dials div {
+  z-index: 4;
+}
+
+#speed-dial {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  background-color: rgba(24, 140, 200, 1);
+  margin: 0 auto;
+  box-shadow: 0 5px 20px 5px rgba(0, 0, 0, .1), inset 0 0 0 150px rgba(33, 39, 44, 1);
+  transition: box-shadow .2s linear;
+}
+
+#speed-dial > span {
+  display: block;
+  height: 270px;
+  line-height: 240px;
+  font-size: 8rem;
+}
+
+#speed-dial span:last-child {
+  position: relative;
+  top: -215px;
+  font-size: 1.5rem;
+  opacity: .5;
+}
+
+#range-dial-container {
+  position: relative;
+  top: -160px;
+  right: -195px;
+  height: 50px;
+  overflow: hidden;
+}
+
+#range-dial {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: rgba(24, 140, 200, 1) solid 10px;
+  margin: 0 auto;
+}
+
+#range-dial i {
+  font-size: 2.5rem;
+  padding-top: 5px;
+}
+
+#range {
+  position: relative;
+  top: -153px;
+  right: -196px;
+  z-index: 6;
+}

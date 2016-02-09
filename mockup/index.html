@@ -1,0 +1,86 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>LightIVI</title>
+  <meta name="description" content="Description of site..." />
+  <meta name="author" content="LightIVI" />
+  <meta name="keywords" content="light, infotainment, automotive, in vehicle infotaionment" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image" href="../images/favicon.png">
+
+  <!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../bower_components/Materialize/dist/css/materialize.min.css" media="screen,projection" />
+  <!--Our CSS-->
+  <link href="mockup.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div id="overlays">
+    <div id="device">
+      <div id="top-bar">
+        <span>Temp</span>
+        <span>Phone Battery</span>
+        <span id="time">Time</span>
+      </div>
+      <div id="bottom-bar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div id="gps-notification">
+      <span>TODO: GPS</span>
+    </div>
+    <div id="menu-container">
+      <div id="menu">
+        <ul>
+          <li id="menu-calls"><i class="material-icons small">phone</i></li>
+          <li id="menu-navigation"><i class="material-icons small">navigation</i></li>
+          <li id="menu-music"><i class="material-icons small">queue_music</i></li>
+        </ul>
+      </div>
+      <div id="selector"></div>
+    </div>
+    <div id="dials">
+      <div id="speed-dial">
+        <span id="speed">0</span>
+        <span>km/h</span>
+      </div>
+      <div id="range-dial-container">
+        <div id="range-dial"><i class="material-icons">settings_remote</i></div>
+      </div>
+      <span id="range">200km</span>
+    </div>
+  </div>
+  <div id="views">
+    <div id="calls" class="view">
+      <div id="contacts">
+        <div>
+          <img class="contact" src="https://placebear.com/300/300" />
+          <img class="contact active" src="https://placebear.com/400/400" />
+          <img class="contact" src="https://placebear.com/200/200" />
+        </div>
+      </div>
+      <div id="selected-contact">
+        <p>Yogi Bear</p>
+        <i class="material-icons medium">phone</i>
+      </div>
+    </div>
+    <div id="navigation" class="view">
+      <p></p>
+    </div>
+    <div id="music" class="view">
+      <p>Music</p>
+    </div>
+  </div>
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../bower_components/Materialize/dist/js/materialize.min.js"></script>
+  <script type="text/javascript" src="mockup.js"></script>
+</body>
+
+</html>
