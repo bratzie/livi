@@ -1,8 +1,10 @@
-var state = "calls", selector, gps = false, accellerating = false, activeCall = false, speedDial, speedValue;
+var state = "calls", selector, gps = false, accellerating = false, activeCall = false, speedDial, speedValue, selectInProgress = false;
 
 /* Functions to cycle lists */
 $.fn.cycleToLast = function() {
-  $(this).children(':first-child').appendTo($(this));
+  if($(this).children(':first-child')) {
+    $(this).children(':first-child').appendTo($(this)); 
+  }
   return this;
 }
 
@@ -17,7 +19,9 @@ $.fn.animateToLast = function() {
 }
 
 $.fn.cycleToFirst = function() {
-  $(this).children(':last-child').prependTo($(this));
+  if($(this).children(':first-child')) {
+    $(this).children(':last-child').prependTo($(this));
+  }
   return this;
 }
 
@@ -88,6 +92,7 @@ function activateMusic() {
   $('#menu-music').addClass('active');
   
   /* Move states */
+  $('#navigation').css('top', '0px');
   $('#music').css('top', '0px');
   
   /* Adjust selector position */
@@ -130,11 +135,23 @@ function menuDown() {
 
 /* Calls */
 function selectNextContact() {
-  $('#contacts > div').cycleToLast().find('.active').removeClass('active').next('.contact').addClass('active');
+  if (!selectInProgress) {
+    selectInProgress = true;
+    $('#contacts > div').animateToLast().find('.active').removeClass('active').next('.contact').addClass('active');
+    t = setTimeout(function() {
+      selectInProgress = false;
+    }, 250);
+  }
 }
 
 function selectPreviousContact() {
-  $('#contacts > div').cycleToFirst().find('.active').removeClass('active').prev('.contact').addClass('active');
+  if (!selectInProgress) {
+    selectInProgress = true;
+    $('#contacts > div').animateToFirst().find('.active').removeClass('active').prev('.contact').addClass('active');
+    t = setTimeout(function() {
+      selectInProgress = false;
+    }, 250);
+  }
 }
 
 function togglePhonecall() {
@@ -158,6 +175,36 @@ function toggleGPS() {
   }
 }
 
+/* Music */
+function selectNextPlaylist() {
+  if (!selectInProgress) {
+    selectInProgress = true;
+    var el = $('#playlist-container');
+    el.find('.active-track').removeClass('active-track');
+    el.find('.active-playlist').removeClass('active-playlist').next('.playlist').addClass('active-playlist').children('ul').children(':first-child').addClass('active-track');
+    el.animateToLast();
+    t = setTimeout(function() {
+      selectInProgress = false;
+    }, 250);
+  }
+}
+
+function selectPreviousPlaylist() {
+  
+}
+
+function selectNextTrack() {
+  if (!selectInProgress) {
+    selectInProgress = true;
+    var el = $('.active-playlist ul');
+    el.find('.active-track').removeClass('active-track').next('.track').addClass('active-track');
+    el.animateToLast();
+    t = setTimeout(function() {
+      selectInProgress = false;
+    }, 250);
+  }
+}
+
 /* Interaction */
 
 /* Swipe */ 
@@ -173,6 +220,19 @@ function handleSwipeUp() {
 
 function handleSwipeRight() {
   console.log('Swiped RIGHT');
+  switch(state) {
+    case "calls":
+      break;
+      
+    case "navigation":
+      break;
+    
+    case "music":
+      selectNextPlaylist();
+      break;
+      
+    default: return;
+  }
 }
 
 function handleSwipeDown() {
@@ -215,6 +275,7 @@ function handlePressRight() {
       break;
     
     case "music":
+      selectNextTrack();
       break;
       
     default: return;
@@ -363,6 +424,6 @@ $(document).ready(function() {
   speedDial = $('#speed-dial');
   speedValue = $('#speed');
   startTime();
-  activateCalls();
+  activateMusic();
   decellerate();
 })

@@ -18,7 +18,7 @@ body {
 .view, #menu, #selector, #menu li, #gps-notification, .contact {
   transition-delay: .1s;
   transition-duration: .4s;
-  transition-property: top, bottom, background-color, color, transform, padding-top, box-shadow;
+  transition-property: top, bottom, background-color, color, transform, padding-top, box-shadow, height, opacity, border;
   transition-timing-function: ease-in-out;
 }
 
@@ -34,9 +34,13 @@ body {
   top: 0px;
   padding-top: 50px;
   text-align: center;
-  font-size: 3em;
   background-color: rgba(50, 58, 58, 1);
   box-shadow: -10px 0 50px 5px rgba(0, 0, 0, .3);
+}
+
+.view > p {
+  font-size: 2em;
+  margin: 0;
 }
 
 #views.padded .view {
@@ -66,20 +70,31 @@ body {
   width: 120px;
   height: 120px;
   margin: 0 5px;
-  opacity: .5;
+  opacity: .3;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .4);
   transform: scale(.95);
+  -webkit-filter: blur(2px);
 }
 
 #contacts .contact.active {
-  width: 180px;
-  height: 180px;
   z-index: 6;
   opacity: 1;
-  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .3);
-  transform: scale(1.05);
+  box-shadow: 0 5px 30px 5px rgba(0, 0, 0, .3);
+  border-bottom: rgba(24, 140, 200, 1) solid 4px;
+  transform: scale(1.5);
+  -webkit-filter: blur(0px);
 }
 
+#selected-contact > p {
+  font-size: 3em;
+  margin: 0;
+}
+
+#selected-contact > i {
+  margin: .5em;
+}
+
+/* Navigation */
 #navigation {
   z-index: 2;
   background-image: url(navigation.jpg);
@@ -87,9 +102,65 @@ body {
   top: 100%;
 }
 
+/* Music */
 #music {
   z-index: 3;
   top: 100%;
+  background-color: rgba(33, 39, 44, 1);
+}
+
+#playlist-container {
+  margin: 0px auto;
+  width: 500px;
+  height: 370px;
+  overflow: hidden;
+}
+
+.playlist-title {
+  text-transform: uppercase;
+  float: left;
+  padding-left: 10px;
+}
+
+.playlist ul {
+  height: 120px;
+  width: 110%;
+  margin-bottom: 25px;
+  overflow: hidden;
+  opacity: .5;
+  -webkit-filter: blur(3px);
+}
+
+.active-playlist ul {
+  opacity: 1;
+  -webkit-filter: blur(0px);
+}
+
+.track {
+  display: inline-block;
+  float: left;
+  width: 120px;
+  height: 120px;
+  margin: 0px 5px;
+  overflow: hidden;
+  opacity: .5;
+}
+
+.active-track {
+  opacity: 1;
+  border-bottom: rgba(24, 140, 200, 1) solid 4px;
+}
+
+.track img {
+  width: 100%;
+  height: 100%;
+}
+
+#music-controls {
+  height: 500px;
+  padding-top: 10px;
+  box-shadow: 0 -20px 25px 0 rgba(0, 0, 0, .1);
+  background-color: rgba(50, 58, 58, 1);
 }
 
 /* Overlays */
