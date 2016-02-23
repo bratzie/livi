@@ -15,6 +15,18 @@ body {
   overflow: hidden;
 }
 
+/* General */
+.faded {
+  opacity: .5;
+}
+
+.bold {
+  font-weight: 700;
+  color: rgba(24, 140, 200, 1);
+}
+
+/* Presentation */
+
 #phone-container {
   width: 640px;
   position: relative;
@@ -23,6 +35,7 @@ body {
 
 #phone-overlay {
   position: absolute;
+  pointer-events: none;
   top: -36px;
   left: -62px;
   z-index: 10;
@@ -36,6 +49,7 @@ body {
 }
 
 #phone {
+  background-color: rgba(33, 39, 44, 1);
   margin-top: 100px;
   height: 320px;
 }
@@ -43,7 +57,7 @@ body {
 #tutorial {
   margin-top: 45px;
   padding: 15px;
-  background-color: rgba(255, 255, 255, .8);
+  background-color: rgba(255, 255, 255, .85);
   color: rgba(33, 39, 44, 1);
   border-radius: 5px 5px 0 0;
 }
@@ -58,7 +72,7 @@ body {
 #tutorial div {
   margin-top: 20px;
 }
-
+  
 #tutorial section {
   display: inline-block;
   vertical-align: top;
@@ -82,10 +96,10 @@ body {
 }
 
 /* Animation */
-.view, #menu, #selector, #menu li, #gps-notification, .contact {
+.view, #menu, #selector, #menu li, #gps-notification, #gps-bottom, .contact img, .contact p, .track {
   transition-delay: .1s;
   transition-duration: .4s;
-  transition-property: top, bottom, background-color, color, transform, padding-top, box-shadow, height, opacity, border;
+  transition-property: top, bottom, background-color, color, transform, padding-top, box-shadow, height, opacity;
   transition-timing-function: ease-in-out;
 }
 
@@ -102,6 +116,7 @@ body {
   padding-top: 35px;
   background-color: rgba(50, 58, 58, 1);
   box-shadow: -10px 0 50px 5px rgba(0, 0, 0, .3);
+  overflow: hidden;
 }
 
 .view-content {
@@ -143,6 +158,7 @@ body {
 #contacts {
   height: 130px;
   display: inline-flex;
+  padding-top: 30px;
 }
 
 #contacts > div {
@@ -153,7 +169,8 @@ body {
   align-items: center;
 }
 
-.contact {
+.contact img {
+  position: relative;
   display: inline-block;
   width: 80px;
   height: 80px;
@@ -161,25 +178,35 @@ body {
   opacity: .5;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .4);
   transform: scale(.95);
-  -webkit-filter: blur(1px);
+  z-index: 4;
 }
 
-#contacts .contact.active {
+#contacts .contact.active img {
   z-index: 6;
   opacity: 1;
-  box-shadow: 0 5px 30px 5px rgba(0, 0, 0, .3);
-  border-bottom: rgba(24, 140, 200, 1) solid 4px;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .3);
+  border-bottom: 2px solid rgba(24, 140, 200, 1);
   transform: scale(1.5);
-  -webkit-filter: blur(0px);
 }
 
-#selected-contact > p {
-  font-size: 1.5em;
-  margin: 10px 0;
+.contact p {
+  position: relative;
+  top: 0;
+  opacity: 0;
+}
+
+#contacts .contact.active p {
+  top: 25px;
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+#selected-contact {
+  margin: 25px 0;
 }
 
 #selected-contact > i {
-  margin: .1em;
+  margin: 1em;
 }
 
 /* Navigation */
@@ -191,7 +218,7 @@ body {
 
 #map {
   width: 100%;
-  height: 100%;
+  height: 110%;
 }
 
 /* Music */
@@ -203,7 +230,7 @@ body {
 #playlist-container {
   margin: 0px auto;
   width: 270px;
-  height: 120px;
+  height: 105px;
   overflow: hidden;
 }
 
@@ -217,12 +244,10 @@ body {
   margin-bottom: 25px;
   overflow: hidden;
   opacity: .5;
-  -webkit-filter: blur(3px);
 }
 
 .active-playlist ul {
   opacity: 1;
-  -webkit-filter: blur(0px);
 }
 
 .track {
@@ -237,7 +262,7 @@ body {
 
 .active-track {
   opacity: 1;
-  border-bottom: rgba(24, 140, 200, 1) solid 5px;
+  border-bottom: 4px solid rgba(24, 140, 200, 1);
 }
 
 .track img {
@@ -246,13 +271,33 @@ body {
 }
 
 #music-controls {
-  height: 500px;
-  padding-top: 30px;
+  padding-top: 5px;
+}
+
+#music-controls p {
+  margin: 2px 0;
+}
+
+#music-controls p:first-child {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+#music-controls i {
+  position: relative;
+  top: -10px;
+  font-size: 3rem;
+}
+
+#music-controls #mc-progress {
+  position: relative;
+  top: -10px;
+  width: 70%;
 }
 
 /* Overlays */
 #overlays div {
-  z-index: 5;
+  z-index: 4;
 }
 
 /* Device */
@@ -275,8 +320,27 @@ body {
   float: right;
 }
 
+#top-bar, #bottom-bar {
+  vertical-align: middle;
+}
+
 #top-bar {
   top: 0px;
+}
+
+#top-bar img {
+  float: right;
+  margin-top: 1px;
+  width: 20px;
+  height: 20px;
+}
+
+#battery, #time {
+  float: right;
+}
+
+#battery {
+  margin-right: 10px;
 }
 
 #bottom-bar {
@@ -294,6 +358,7 @@ body {
   color: black;
   box-shadow: 0 2px 10px 2px rgba(0, 0, 0, .1);
   text-align: center;
+  border-radius: 0 0 10px 10px;
 }
 
 #gps-left, #gps-right {
@@ -311,19 +376,19 @@ body {
 
 #gps-left .next {
   position: absolute;
-  top: 45px;
-  left: 5px;
-  opacity: .2;
-  font-size: 2rem;
+  top: 54px;
+  left: 35px;
+  opacity: .8;
+  width: 40px;
 }
 
 #gps-left .current {
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 15px;
+  top: 15px;
   color: rgba(24, 140, 200, 1);
   opacity: 1;
-  font-size: 5rem;
+  width: 60px;
 }
 
 #gps-right {
@@ -338,9 +403,39 @@ body {
 }
 
 #gps-right p:first-child {
-  margin-top: 25px;
-  font-size: 1.2rem;
+  margin-top: 30px;
+  font-size: 1.1rem;
   opacity: 1;
+}
+
+#gps-bottom {
+  position: absolute;
+  box-sizing: border-box;
+  bottom: -30px;
+  left: 267px;
+  height: 30px;
+  width: 230px;
+  background-color: rgba(255, 255, 255, .8);
+  color: black;
+  box-shadow: 0 2px 10px 2px rgba(0, 0, 0, .1);
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+}
+
+#gps-bottom span {
+  display: inline-block;
+  padding: 3px;
+  font-size: 1.2rem;
+}
+
+#gps-bottom span:first-child {
+  float: left;
+  padding-left: 8px;
+}
+
+#gps-bottom span:last-child {
+  float: right;
+  padding-right: 8px;
 }
 
 /* Menu */
@@ -372,6 +467,7 @@ body {
   background-color: rgba(33, 39, 44, 1);
   z-index: 5;
   margin: 5px 0;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .1);
 }
 
 #menu li:before {
@@ -420,10 +516,11 @@ body {
 #dials {
   position: absolute;
   width: 100%;
-  height: 180px;
-  bottom: 0px;
+  height: 140px;
+  bottom: 15px;
   text-align: left;
-  z-index: 4 !important;
+  z-index: 4;
+  pointer-events: none;
 }
 
 #dials div {
@@ -431,59 +528,105 @@ body {
 }
 
 #speed-dial {
+  position: absolute;
   text-align: center;
   display: inline-block;
-  left: 0px;
-  height: 200px;
-  width: 200px;
+  height: 180px;
+  width: 180px;
   border-radius: 50%;
-  background-color: rgba(24, 140, 200, 1);
+  background: url('assets/hastighetsm-08.svg');
+  background-position: center;
+  background-size: cover;
   margin: 0px 5px;
-  box-shadow: 0 5px 20px 5px rgba(0, 0, 0, .1), inset 0 0 0 100px rgba(33, 39, 44, 1);
+  box-shadow: 0 20px 20px 5px rgba(0, 0, 0, 0);
   transition: box-shadow .2s linear;
+  z-index: 5 !important;
+}
+
+#sd-backplate {
+  position: absolute;
+  content: '';
+  height: 165px;
+  width: 165px;
+  left: 12px;
+  top: 5px;
+  background-color: rgba(255, 255, 255, 1);
+  z-index: 3 !important;
+  border-radius: 50%;
 }
 
 #speed-dial > span {
   display: block;
   height: 170px;
   line-height: 160px;
-  font-size: 5rem;
+  font-size: 4rem;
 }
 
 #speed-dial span:last-child {
   position: relative;
-  top: -120px;
-  font-size: 1.2rem;
+  top: -135px;
+  font-size: 1rem;
   opacity: .5;
+}
+
+/* Radial Progress */
+#sd-progress {
+  position: absolute;
+  z-index: 4;
+  top: -2px;
+  left: 3px;
+  width:  184px;
+  height: 184px;
+  border-radius: 50%;
+  transform: rotate(-136deg);
+}
+
+#sd-progress .circle .mask, #sd-progress .circle .fill {
+  width: 184px;
+  height: 184px;
+  position: absolute;
+  border-radius: 50%;
+  transition: -webkit-transform .4s;
+  transition: -ms-transform .4s;
+  transition: transform .4s;
+  -webkit-backface-visibility: hidden;
+}
+
+#sd-progress .circle .mask {
+  clip: rect(0px, 184px, 184px, 92px);
+}
+#sd-progress .circle .mask .fill {
+  clip: rect(0px, 92px, 184px, 0px);
+  background-color: rgba(24, 140, 200, 1);
 }
 
 #range-dial-container {
   text-align: center;
-  position: relative;
-  width: 100px;
-  right: -545px;
-  top: -100px;
+  position: absolute;
+  width: 60px;
+  right: 15px;
+  bottom: 6px;
   height: 50px;
-  overflow: hidden;
 }
 
 #range-dial {
-  height: 80px;
-  width: 80px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
-  border: rgba(24, 140, 200, 1) solid 10px;
+  /*border: rgba(24, 140, 200, 1) solid 10px;*/
   background-color: rgba(0, 0, 0, .2);
   margin: 0 auto;
 }
 
-#range-dial i {
-  font-size: 2rem;
-  padding-top: 7px;
+#rd-progress {
+  position: absolute;
+  left: 0;
+  top: -6px;
+  width: 60px;
 }
 
 #range {
   position: relative;
-  right: -575px;
-  top: -92px;
+  top: -12px;
   z-index: 6;
 }

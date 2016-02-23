@@ -37,6 +37,15 @@ function windowContrast() {
   }
 }
 
+function noFadeOnSmallScreens() {
+  if ($(window).width() < 950) {
+    $('#challenge').find(".fade-in-section").css('opacity', 1);
+    $('#solution').find(".fade-in-section").css('opacity', 1);
+    $('#offer').find(".fade-in-section").css('opacity', 1);
+    $('#joinus').find(".fade-in-section").css('opacity', 1);
+  }
+}
+
 function fadeWelcome() {
   var fade = $('.welcome .fade-on-scroll');
   if ($(window).scrollTop() < windowHeight) {
@@ -57,13 +66,7 @@ $(document).ready(function () {
   });
   
   windowContrast();
-  
-  if ($(window).width() < 950) {
-    $('#challenge').find(".fade-in-section").css('opacity', 1);
-    $('#solution').find(".fade-in-section").css('opacity', 1);
-    $('#offer').find(".fade-in-section").css('opacity', 1);
-    $('#joinus').find(".fade-in-section").css('opacity', 1);
-  }
+  noFadeOnSmallScreens();
 });
 
 function fadeInContent(content) {
@@ -81,6 +84,7 @@ $(window).scroll(function () {
 
 $(window).resize(function () {
   windowHeight = $(window).height();
+  noFadeOnSmallScreens();
 });
 
 // Bind click handler to menu items

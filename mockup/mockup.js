@@ -1,4 +1,6 @@
-var state = "calls", selector, gps = false, accellerating = false, activeCall = false, speedDial, speedValue, selectInProgress = false;
+var state = "calls", selector, gps = false, accellerating = false, activeCall = false, speedDial, speedValue, sdFill, sdFix, selectInProgress = false;
+
+var transform_styles = ['-webkit-transform', '-ms-transform', 'transform'];
 
 var LOG_STUFF = false;
 
@@ -55,9 +57,17 @@ function startTime() {
   var today = new Date();
   var h = today.getHours();
   var m = today.getMinutes();
+  var gpsh = h;
+  var gpsm = m + 5;
   // add a zero in front of numbers<10
   m = checkTime(m);
   $('#time').html(h + ":" + m);
+  if (gpsm >= 60) {
+    gpsh++;
+    gpsm -= 60;
+  }
+  gpsm = checkTime(gpsm)
+  $('#gps-time').html(gpsh + ":" + gpsm);
   t = setTimeout(function () {
     startTime()
   }, 30000);
@@ -71,6 +81,7 @@ function activateCalls() {
   $('#menu-calls').addClass('active');
   
   /* Move states */
+  $('#calls').css('top', '0px');
   $('#navigation').css('top', '-100%');
   $('#music').css('top', '-100%');
   
@@ -85,6 +96,7 @@ function activateNavigation() {
   $('#menu-navigation').addClass('active');
   
   /* Move states */
+  $('#calls').css('top', '100%');
   $('#navigation').css('top', '0px');
   $('#music').css('top', '-100%');
   
@@ -99,7 +111,8 @@ function activateMusic() {
   $('#menu-music').addClass('active');
   
   /* Move states */
-  $('#navigation').css('top', '0px');
+  $('#calls').css('top', '100%');
+  $('#navigation').css('top', '100%');
   $('#music').css('top', '0px');
   
   /* Adjust selector position */
@@ -170,12 +183,15 @@ function togglePhonecall() {
 
 /* Navigation */
 function toggleGPS() {
-  el = $('#gps-notification')
+  var top = $('#gps-notification');
+  var bottom = $('#gps-bottom');
   if (gps) {
-    el.css('top', '-' + el.outerHeight());
+    bottom.css('bottom', '-' + bottom.outerHeight());
+    top.css('top', '-' + top.outerHeight());
     gps = false;
   } else {
-    el.css('top', '25px');
+    bottom.css('bottom', '0px');
+    top.css('top', '25px');
     gps = true;
   }
 }
@@ -188,7 +204,7 @@ function initMap() {
     disableDefaultUI: true
   });
   map.set('styles', [
-    {"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}
+    {"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"},{"weight":"0.20"},{"lightness":"28"},{"saturation":"23"},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#494949"},{"lightness":13},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}
   ])
 }
 
@@ -253,13 +269,14 @@ function handleSwipeLeft() {
   log('Swiped LEFT');
   switch(state) {
     case "calls":
+      selectPreviousContact();
       break;
       
     case "navigation":
       break;
     
     case "music":
-      selectPreviousPlaylist();
+      selectPreviousTrack();
       break;
       
     default: return;
@@ -275,13 +292,14 @@ function handleSwipeRight() {
   log('Swiped RIGHT');
   switch(state) {
     case "calls":
+      selectNextContact();
       break;
       
     case "navigation":
       break;
     
     case "music":
-      selectNextPlaylist();
+      selectNextTrack();
       break;
       
     default: return;
@@ -299,14 +317,13 @@ function handlePressLeft() {
   log('Pressed LEFT');
   switch(state) {
     case "calls":
-      selectPreviousContact();
       break;
       
     case "navigation":
       break;
     
     case "music":
-      selectPreviousTrack();
+      selectPreviousPlaylist();
       break;
       
     default: return;
@@ -322,14 +339,13 @@ function handlePressRight() {
   log('Pressed RIGHT');
   switch(state) {
     case "calls":
-      selectNextContact();
       break;
       
     case "navigation":
       break;
     
     case "music":
-      selectNextTrack();
+      selectNextPlaylist();
       break;
       
     default: return;
@@ -439,14 +455,19 @@ function accellerate() {
   speed = parseInt(speedValue.html());
   accellerating = true;
   var newSpeed;
-  if (speed > 120) {
-    newSpeed = speed;
+  
+  if (speed > 50) {
+    newSpeed = Math.floor(speed*=1.04)
   } else if (speed > 20) {
     newSpeed = Math.floor(speed*=1.08)
   } else {
     newSpeed = speed + 2;
   }
-  adjustSpeedDial(newSpeed);
+  
+  if (speed > 120) { /* Cap speed at 120 */
+    newSpeed = 120;
+  }
+  setSpeed(newSpeed);
 }
 
 function decellerate() {
@@ -454,30 +475,38 @@ function decellerate() {
   if (accellerating) {
     // do nothing
   } else {
-    if (speed > 10) {
-      speed = Math.floor(speed*=0.94)
+    if (speed > 60) {
+      speed = Math.floor(speed*=0.98)
+    } else if (speed > 20) {
+      speed = Math.floor(speed*=0.95)
     } else if (speed > 0) {
       speed -= 1;
     }
-    adjustSpeedDial(speed);
+    setSpeed(speed);
   }
   t = setTimeout(function () {
     decellerate()
-  }, 100);
+  }, 200);
 }
 
-function adjustSpeedDial(value) {
-  speedValue.html(value);
-  var newBoxShadow = "0 5px 20px 5px rgba(0, 0, 0, .1), inset 0 0 0 " + (100 - speed) + "px rgba(33, 39, 44, 1)";
-  speedDial.css('box-shadow', newBoxShadow)
+function setSpeed(speed) {
+  speedValue.html(speed);
+  var rotation = Math.floor((speed/120) * 136.5);
+  var fill_rotation = rotation;
+  var fix_rotation = rotation * 2;
+  for(i in transform_styles) {
+    $('#sd-progress .circle .fill, .circle .mask.full').css(transform_styles[i], 'rotate(' + fill_rotation + 'deg)');
+    $('.circle .fill.fix').css(transform_styles[i], 'rotate(' + fix_rotation + 'deg)');
+  }
 }
-
 
 $(document).ready(function() {
   selector = $('#selector');
   speedDial = $('#speed-dial');
   speedValue = $('#speed');
+  sdFill = $('#sd-progress .circle .fill, .circle .mask.full');
+  sdFix = $('.circle .fill.fix');
   startTime();
-  activateMusic();
+  activateCalls();
   decellerate();
 })
