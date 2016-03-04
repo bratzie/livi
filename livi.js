@@ -4,8 +4,9 @@ var header = $('#header');
 
 // Cache selectors for scrollspy
 var lastId,
-  topMenu = $("#header"),
-  topMenuHeight = topMenu.outerHeight() - 20,
+  header = $("#header"),
+  topMenu = $("#header ul"),
+  headerHeight = header.outerHeight() - 20,
   windowHeight = $(window).height(),
   // All list items
   menuItems = topMenu.find("a"),
@@ -91,7 +92,7 @@ $(window).resize(function () {
 // so we can get a fancy scroll animation
 menuItems.click(function (e) {
   var href = $(this).attr("href"),
-    offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight + 1;
+    offsetTop = href === "#" ? 0 : $(href).offset().top - headerHeight + 1;
   $('html, body').stop().animate({
     scrollTop: offsetTop
   }, 500);
@@ -101,7 +102,7 @@ menuItems.click(function (e) {
 // Bind to scroll
 $(window).scroll(function () {
   // Get container scroll position
-  var fromTop = $(this).scrollTop() + topMenuHeight + (windowHeight/2.5);
+  var fromTop = $(this).scrollTop() + headerHeight + (windowHeight/2.5);
 
   // Get id of current scroll item
   var cur = scrollItems.map(function () {
